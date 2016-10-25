@@ -749,6 +749,110 @@ def mario_more(target, dest, string):
     string += "\n+------------------+\n\n"
     # return number of tests passed and total number
     return passcount / totalcount, string
+
+def smile(target, dest):
+    passcount, totalcount = 0, 0
+
+    # dest.write header
+    dest.write("smile\n\n")
+
+    # check if file exists
+    if os.path.isfile(target + "/smile"):
+        dest.write("*PASSED* " + '-- smile exists\n')
+        passcount += 1
+    else:
+        dest.write("*FAILED* " + '-- smile exists\n')
+    totalcount += 1
+    
+    # analyzes 'love' as ':)'
+    output = ':)'
+    process = pexpect.spawnu('python3 {}/smile love'.format(target))
+    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    return_data = process.before
+    if output not in return_data or process.isalive():
+        dest.write("*FAILED* " + '-- analyzes \'love\' as \':)\'\n')
+    else:
+        dest.write("*PASSED* " + '-- analyzes \'love\' as \':)\'\n')
+        passcount += 1
+    process.kill(0)
+    totalcount += 1
+    
+    # analyzes 'hate' as ':('
+    output = ':('
+    process = pexpect.spawnu('python3 {}/smile hate'.format(target))
+    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    return_data = process.before
+    if output not in return_data or process.isalive():
+        dest.write("*FAILED* " + '-- analyzes \'hate\' as \':(\'\n')
+    else:
+        dest.write("*PASSED* " + '-- analyzes \'hate\' as \':(\'\n')
+        passcount += 1
+    process.kill(0)
+    totalcount += 1
+    
+    # analyzes 'Stanford' as ':|'
+    output = ':|'
+    process = pexpect.spawnu('python3 {}/smile Stanford'.format(target))
+    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    return_data = process.before
+    if output not in return_data or process.isalive():
+        dest.write("*FAILED* " + '-- analyzes \'Stanford\' as \':|\'\n')
+    else:
+        dest.write("*PASSED* " + '-- analyzes \'Stanford\' as \':|\'\n')
+        passcount += 1
+    process.kill(0)
+    totalcount += 1
+    
+    # analyzes 'LOVE' as ':)'
+    output = ':)'
+    process = pexpect.spawnu('python3 {}/smile LOVE'.format(target))
+    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    return_data = process.before
+    if output not in return_data or process.isalive():
+        dest.write("*FAILED* " + '-- analyzes \'LOVE\' as \':)\'\n')
+    else:
+        dest.write("*PASSED* " + '-- analyzes \'LOVE\' as \':)\'\n')
+        passcount += 1
+    process.kill(0)
+    totalcount += 1
+    
+    # analyzes 'hAtE' as ':('
+    output = ':('
+    process = pexpect.spawnu('python3 {}/smile hAtE'.format(target))
+    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    return_data = process.before
+    if output not in return_data or process.isalive():
+        dest.write("*FAILED* " + '-- analyzes \'hAtE\' as \':(\'\n')
+    else:
+        dest.write("*PASSED* " + '-- analyzes \'hAtE\' as \':(\'\n')
+        passcount += 1
+    process.kill(0)
+    totalcount += 1
+    
+    # handles lack of argv[1]
+    process = pexpect.spawnu('python3 {}/smile'.format(target))
+    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    if process.isalive() or not process.exitstatus:
+        dest.write("*FAILED* " + '-- handles lack of argv[1]\n')
+    else:
+        dest.write("*PASSED* " + '-- handles lack of argv[1]\n')
+        passcount += 1
+    process.kill(0)
+    totalcount += 1
+    
+    # handles argc > 2
+    process = pexpect.spawnu('python3 {}/smile foo bar'.format(target))
+    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    if process.isalive() or not process.exitstatus:
+        dest.write("*FAILED* " + '-- handles argc > 2\n')
+    else:
+        dest.write("*PASSED* " + '-- handles argc > 2\n')
+        passcount += 1
+    process.kill(0)
+    totalcount += 1
+    
+    dest.write('\nsmile -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount))
+    dest.write("\n+------------------+\n\n")
     
 # vigenere.py
 def vigenere(target, dest):

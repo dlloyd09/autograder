@@ -5,7 +5,7 @@
 # Jason Hirschhorn                 #
 # Doug Lloyd                       #
 #                                  #
-# Last revised: 2016-10-24 18:05   #
+# Last revised: 2016-10-25 10:15   #
 ####################################
 
 import os, check50
@@ -14,6 +14,7 @@ def main():
     
     # list of files this script catches
     recreated_files = ['caesar', 'crack', 'credit', 'greedy', 'mario', 'vigenere']
+    new_files = ['smile', 'tweets']
     
     # message
     print("Automatically grading Problem Set 6...")
@@ -44,7 +45,7 @@ def main():
         # breadcrumbs
         print("Now grading student {}...".format(directory))
         
-        # see which files are there
+        # see which reimplemented files are there
         for target in recreated_files:
             if os.path.isfile(rootdir + directory + "/" + target + ".py"):
                 if target == "greedy":
@@ -57,7 +58,13 @@ def main():
                     check50.vigenere("{}{}".format(rootdir, directory), f)
                 elif target == "mario":
                     check50.mario("{}{}".format(rootdir, directory), f)
-
+        
+        # grade smile and tweets
+        for target in new_files:
+            if os.path.isfile(rootdir + directory + "/sentiments/" + target):
+                if target == "smile":
+                    check50.smile("{}{}".format(rootdir, directory + "/sentiments"), f)
+                    
         # close the file you're working on
         f.close()
         
