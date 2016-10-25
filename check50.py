@@ -124,7 +124,7 @@ def caesar(target, dest):
     dest.write('\ncaesar.py -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount))
     dest.write("\n+------------------+\n\n")
 
-# caesar.py
+# credit.py
 def credit(target, dest):
     passcount, totalcount = 0, 0
     # dest.write header
@@ -424,4 +424,443 @@ def greedy(target, dest):
         
     process.kill(0)
     dest.write('\ngreedy.py -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount))
+    dest.write("\n+------------------+\n\n")
+
+# mario.py
+def mario(target, dest):
+    less = ""
+    more = ""
+    lessavg, less = mario_less(target, dest, less)
+    moreavg, more = mario_more(target, dest, more)
+    
+    if lessavg >= moreavg:
+        dest.write(less)
+    else:
+        dest.write(more)
+
+# mario (less)
+def mario_less(target, dest, string):
+
+    passcount, totalcount = 0, 0
+    # dest.write header
+    string += "mario.py (less comfy)\n\n"
+
+    # check if file exists
+    if os.path.isfile(target + "/mario.py"):
+        string += "*PASSED* " + '-- mario.py exists\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- mario.py exists\n'
+    totalcount += 1
+    
+    # rejects a height of -1
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('-1')
+    if not process.isalive():
+        string += "*PASSED* " + '-- rejects a height of -1\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- rejects a height of -1\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 0 correctly
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('0')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if '#' in return_data or process.isalive():
+        string += "*PASSED* " + '-- handles a height of 0 correctly\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- handles a height of 0 correctly\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 1 correctly
+    output = '''##'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('1')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*PASSED* " + '-- handles a height of 1 correctly\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- handles a height of 1 correctly\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 2 correctly
+    output = ''' ##
+###'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('2')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*PASSED* " + '-- handles a height of 2 correctly\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- handles a height of 2 correctly\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 23 correctly
+    output = '''                      ##
+                     ###
+                    ####
+                   #####
+                  ######
+                 #######
+                ########
+               #########
+              ##########
+             ###########
+            ############
+           #############
+          ##############
+         ###############
+        ################
+       #################
+      ##################
+     ###################
+    ####################
+   #####################
+  ######################
+ #######################
+########################'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('23')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*PASSED* " + '-- handles a height of 23 correctly\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- handles a height of 23 correctly\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # rejects a height of 24, and then accepts a height of 2
+    output = ''' ##
+###'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('24')
+    process.expect('.*')
+    process.sendline('2')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*PASSED* " + '-- rejects a height of 24, and then accepts a height of 2\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- rejects a height of 24, and then accepts a height of 2\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # rejects a non-numeric height of 'foo'
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('foo')
+    if not process.isalive():
+        string += "*PASSED* " + '-- rejects a non-numeric height of \'foo\'\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- rejects a non-numeric height of \'foo\'\n'
+    totalcount += 1
+    process.kill(0)
+
+    # rejects a non-numeric height of ''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('')
+    if not process.isalive():
+        string += "*PASSED* " + '-- rejects a non-numeric height of \'\'\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- rejects a non-numeric height of \'\'\n'
+    totalcount += 1
+    process.kill(0)
+    
+    string += '\nmario.py (less comfy) -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount)
+    string += "\n+------------------+\n\n"
+    # return number of tests passed and total number
+    return passcount / totalcount, string
+
+# mario (more)
+def mario_more(target, dest, string):
+
+    passcount, totalcount = 0, 0
+    # dest.write header
+    string += "mario.py (more comfy)\n\n"
+
+    # check if file exists
+    if os.path.isfile(target + "/mario.py"):
+        string += "*PASSED* " + '-- mario.py exists\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- mario.py exists\n'
+    totalcount += 1
+    
+    # rejects a height of -1
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('-1')
+    if not process.isalive():
+        string += "*PASSED* " + '-- rejects a height of -1\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- rejects a height of -1\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 0 correctly
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('0')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if '#' in return_data or process.isalive():
+        string += "*PASSED* " + '-- handles a height of 0 correctly\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- handles a height of 0 correctly\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 1 correctly
+    output = '''#  #'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('1')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*PASSED* " + '-- handles a height of 1 correctly\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- handles a height of 1 correctly\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 2 correctly
+    output = ''' #  #
+##  ##'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('2')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*PASSED* " + '-- handles a height of 2 correctly\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- handles a height of 2 correctly\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 23 correctly
+    output = '''                      #  #
+                     ##  ##
+                    ###  ###
+                   ####  ####
+                  #####  #####
+                 ######  ######
+                #######  #######
+               ########  ########
+              #########  #########
+             ##########  ##########
+            ###########  ###########
+           ############  ############
+          #############  #############
+         ##############  ##############
+        ###############  ###############
+       ################  ################
+      #################  #################
+     ##################  ##################
+    ###################  ###################
+   ####################  ####################
+  #####################  #####################
+ ######################  ######################
+#######################  #######################'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('23')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*PASSED* " + '-- handles a height of 23 correctly\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- handles a height of 23 correctly\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # rejects a height of 24, and then accepts a height of 2
+    output = ''' #  #
+##  ##'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('24')
+    process.expect('.*')
+    process.sendline('2')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*PASSED* " + '-- rejects a height of 24, and then accepts a height of 2\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- rejects a height of 24, and then accepts a height of 2\n'
+    totalcount += 1
+    process.kill(0)
+    
+    # rejects a non-numeric height of 'foo'
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('foo')
+    if not process.isalive():
+        string += "*PASSED* " + '-- rejects a non-numeric height of \'foo\'\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- rejects a non-numeric height of \'foo\'\n'
+    totalcount += 1
+    process.kill(0)
+
+    # rejects a non-numeric height of ''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('')
+    if not process.isalive():
+        string += "*PASSED* " + '-- rejects a non-numeric height of \'\'\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- rejects a non-numeric height of \'\'\n'
+    totalcount += 1
+    process.kill(0)
+    
+    string += '\nmario.py (more comfy) -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount)
+    string += "\n+------------------+\n\n"
+    # return number of tests passed and total number
+    return passcount / totalcount, string
+    
+# vigenere.py
+def vigenere(target, dest):
+    passcount, totalcount = 0, 0
+    # dest.write header
+    dest.write("vigenere.py\n\n")
+
+    # check if file exists
+    if os.path.isfile(target + "/vigenere.py"):
+        dest.write("*PASSED* " + '-- vigenere.py exists\n')
+        passcount += 1
+    else:
+        dest.write("*FAILED* " + '-- vigenere.py exists\n')
+    totalcount += 1
+    
+    # encrypts 'a' as 'a' using 'a' as keyword
+    process = pexpect.spawnu('python3 {}/vigenere.py a'.format(target))
+    process.expect('.*')
+    process.sendline('a')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = process.before
+    captured_stdout = re.findall(r"[^(\s|\n|\r)]+", return_data)
+    output = captured_stdout[len(captured_stdout) - 1]
+    if output != 'a' or process.isalive():
+        dest.write("*FAILED* " + '-- encrypts \'a\' as \'a\' using \'a\' as keyword\n')
+    else:
+        dest.write("*PASSED* " + '-- encrypts \'a\' as \'a\' using \'a\' as keyword\n')
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+
+    # I think this check might be failing
+    # encrypts 'world, say hello!' as 'xoqmd, rby gflkp!' using 'baz' as keyword
+    process = pexpect.spawnu('python3 {}/vigenere.py baz'.format(target))
+    process.expect('.*')
+    process.sendline('world, say hello!')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = process.before
+    captured_stdout = re.findall(r"[^(\s|\n|\r)]+", return_data)
+    output = captured_stdout[len(captured_stdout) - 1]
+    if output != 'xoqmd, rby gflkp!' or process.isalive():
+        dest.write("*FAILED* " + '-- encrypts \'world, say hello!\' as \'xoqmd, rby gflkp!\' using \'baz\' as keyword\n')
+    else:
+        dest.write("*PASSED* " + '-- encrypts \'world, say hello!\' as \'xoqmd, rby gflkp!\' using \'baz\' as keyword\n')
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+
+    # encrypts 'BaRFoo' as 'CaQGon' using 'BaZ' as keyword
+    process = pexpect.spawnu('python3 {}/vigenere.py BaZ'.format(target))
+    process.expect('.*')
+    process.sendline('BaRFoo')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = process.before
+    captured_stdout = re.findall(r"[^(\s|\n|\r)]+", return_data)
+    output = captured_stdout[len(captured_stdout) - 1]
+    if output != 'CaQGon' or process.isalive():
+        dest.write("*FAILED* " + '-- encrypts \'BaRFoo\' as \'CaQGon\' using \'BaZ\' as keyword\n')
+    else:
+        dest.write("*PASSED* " + '-- encrypts \'BaRFoo\' as \'CaQGon\' using \'BaZ\' as keyword\n')
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+
+    # encrypts 'BARFOO' as 'CAQGON' using 'BAZ' as keyword
+    process = pexpect.spawnu('python3 {}/vigenere.py BAZ'.format(target))
+    process.expect('.*')
+    process.sendline('BARFOO')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = process.before
+    captured_stdout = re.findall(r"[^(\s|\n|\r)]+", return_data)
+    output = captured_stdout[len(captured_stdout) - 1]
+    if output != 'CAQGON' or process.isalive():
+        dest.write("*FAILED* " + '-- encrypts \'BARFOO\' as \'CAQGON\' using \'BAZ\' as keyword\n')
+    else:
+        dest.write("*PASSED* " + '-- encrypts \'BARFOO\' as \'CAQGON\' using \'BAZ\' as keyword\n')
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+   
+    # handles lack of argv[1]
+    process = pexpect.spawnu('python3 {}/vigenere.py'.format(target))
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    if process.isalive() or not process.exitstatus:
+        dest.write("*FAILED* " + '-- handles lack of argv[1]\n')
+    else:
+        dest.write("*PASSED* " + '-- handles lack of argv[1]\n')
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # handles argc > 2
+    process = pexpect.spawnu('python3 {}/vigenere.py a b c'.format(target))
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    if process.isalive() or not process.exitstatus:
+        dest.write("*FAILED* " + '-- handles argc > 2\n')
+    else:
+        dest.write("*PASSED* " + '-- handles argc > 2\n')
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # rejects 'Hax0r2' as keyword
+    process = pexpect.spawnu('python3 {}/vigenere.py Hax0r2'.format(target))
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    if process.isalive() or not process.exitstatus:
+        dest.write("*FAILED* " + '-- rejects \'Hax0r2\' as keyword\n')
+    else:
+        dest.write("*PASSED* " + '-- rejects \'Hax0r2\' as keyword\n')
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    dest.write('\nvigenere.py -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount))
     dest.write("\n+------------------+\n\n")

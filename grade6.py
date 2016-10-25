@@ -34,7 +34,7 @@ def main():
     for directory in directories:
         
         # ignore the results directory
-        if directory == "results":
+        if directory == "results" or directory == ".git":
             continue
         
         # start a file for this student's check50 output
@@ -53,6 +53,10 @@ def main():
                     check50.caesar("{}{}".format(rootdir, directory), f)
                 elif target == "credit":
                     check50.credit("{}{}".format(rootdir, directory), f)
+                elif target == "vigenere":
+                    check50.vigenere("{}{}".format(rootdir, directory), f)
+                elif target == "mario":
+                    check50.mario("{}{}".format(rootdir, directory), f)
 
         # close the file you're working on
         f.close()
