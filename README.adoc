@@ -19,3 +19,7 @@ Example:
 
 . Execute `python grade6.py`
 . When finished, view student results in the newly created `results/` directory!
+
+== Notes
+
+If a student has not named his or her files correctly, or hierarchically organized their submission the way we expect, the script will not work as intended. You may need to rename files or rearrange their submission to get it to work correctly.
