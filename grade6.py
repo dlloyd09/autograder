@@ -58,6 +58,8 @@ def main():
                     check50.vigenere("{}{}".format(rootdir, directory), f)
                 elif target == "mario":
                     check50.mario("{}{}".format(rootdir, directory), f)
+                elif target == "crack":
+                    check50.crack(f)
         
         # grade smile and tweets
         for target in new_files:
@@ -69,6 +71,7 @@ def main():
         f.close()
         
     print("...grading complete!")
+    print("Student reports are now ready in the results/ directory.")
 
 # execute process
 if __name__ == "__main__":

@@ -124,6 +124,12 @@ def caesar(target, dest):
     dest.write('\ncaesar.py -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount))
     dest.write("\n+------------------+\n\n")
 
+# crack.py
+def crack(dest):
+    dest.write("crack.py\n\n")
+    dest.write('\ncrack.py -- REQUIRES MANUAL EVALUATION\n')
+    dest.write("\n+------------------+\n\n")
+    
 # credit.py
 def credit(target, dest):
     passcount, totalcount = 0, 0
