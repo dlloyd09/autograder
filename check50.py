@@ -780,7 +780,6 @@ def vigenere(target, dest):
     totalcount += 1
     process.kill(0)
 
-    # I think this check might be failing
     # encrypts 'world, say hello!' as 'xoqmd, rby gflkp!' using 'baz' as keyword
     process = pexpect.spawnu('python3 {}/vigenere.py baz'.format(target))
     process.expect('.*')
@@ -788,7 +787,7 @@ def vigenere(target, dest):
     process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
     return_data = process.before
     captured_stdout = re.findall(r"[^(\s|\n|\r)]+", return_data)
-    output = captured_stdout[len(captured_stdout) - 1]
+    output = ' '.join(captured_stdout[len(captured_stdout) - 3:])
     if output != 'xoqmd, rby gflkp!' or process.isalive():
         dest.write("*FAILED* " + '-- encrypts \'world, say hello!\' as \'xoqmd, rby gflkp!\' using \'baz\' as keyword\n')
     else:
