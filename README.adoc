@@ -14,6 +14,7 @@ Example:
 
 [start=3]
 . Execute `./setup.sh`
+. Edit `grade6.py` by putting your own API Key and API Secret in place of the `TODO`pass:[s].
 
 == Running
 

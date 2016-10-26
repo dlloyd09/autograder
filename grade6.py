@@ -5,7 +5,7 @@
 # Jason Hirschhorn                 #
 # Doug Lloyd                       #
 #                                  #
-# Last revised: 2016-10-25 10:15   #
+# Last revised: 2016-10-26 19:20   #
 ####################################
 
 import os, check50
@@ -66,7 +66,10 @@ def main():
             if os.path.isfile(rootdir + directory + "/sentiments/" + target):
                 if target == "smile":
                     check50.smile("{}{}".format(rootdir, directory + "/sentiments"), f)
-                    
+                if target == "tweets":
+                    twitter = {'key': 'TODO', 
+                               'secret': 'TODO'}
+                    check50.tweets("{}{}".format(rootdir, directory + "/sentiments"), f, twitter)
         # close the file you're working on
         f.close()
         
