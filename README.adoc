@@ -14,13 +14,45 @@ Example:
 
 [start=3]
 . Execute `./setup.sh`
+. Ensure that each student's submission is properly formatted. This might require renaming files in student submissions after checking out the `pset6` branch. In particular, a student's submission must be organized as follows:
+
+[source,bash]
+----
+~/workspace/students $ cd student1
+~/workspace/students/student1 $ tree
+.
+├── caesar.py
+├── crack.py
+├── credit.py
+├── greedy.py
+├── mario.py
+├── sentiments
+│   ├── analyzer.py
+│   ├── application.py
+│   ├── helpers.py
+│   ├── negative-words.txt
+│   ├── positive-words.txt
+│   ├── requirements.txt
+│   ├── smile
+│   ├── templates
+│   │   ├── index.html
+│   │   ├── layout.html
+│   │   └── search.html
+│   └── tweets
+└── vigenere.py
+----
+
+[start=5]
 . Edit `grade6.py` by putting your own API Key and API Secret in place of the `TODO`pass:[s].
 
 == Running
 
-. Execute `python grade6.py`
-. When finished, view student results in the newly created `results/` directory!
+. Execute `python grade6.py`. It takes just under 60 seconds per student to all 9 checks, so once all the pre-work is done, fire it off and grade a bite to eat!
+.. This script will run `mario_less` and `mario_more` on all students, probabilistically determining which the student most likely completed based on how well their code works.
+. When finished, view student results in the newly created `results/` directory, and input scores into Gradebook.
 
 == Notes
 
-If a student has not named his or her files correctly, or hierarchically organized their submission the way we expect, the script will not work as intended. You may need to rename files or rearrange their submission to get it to work correctly.
+. During the `tweets` check, this program will create and delete files called `__staff.txt` and `__student.txt`. If for whatever reason you have files called that, you might want to move them; they will be clobbered.
+. If a student has not named his or her files correctly, or hierarchically organized their submission the way we expect, the script will not work as intended. You may need to rename files or rearrange their submission to get it to work correctly.
+

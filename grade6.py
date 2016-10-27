@@ -45,33 +45,20 @@ def main():
         # breadcrumbs
         print("Now grading student {}...".format(directory))
         
-        # see which reimplemented files are there
-        for target in recreated_files:
-            if os.path.isfile(rootdir + directory + "/" + target + ".py"):
-                if target == "mario":
-                    check50.mario("{}{}".format(rootdir, directory), f)
-                elif target == "greedy":
-                    check50.greedy("{}{}".format(rootdir, directory), f)
-                elif target == "credit":
-                    check50.credit("{}{}".format(rootdir, directory), f)
-                elif target == "caesar":
-                    check50.caesar("{}{}".format(rootdir, directory), f)
-                elif target == "vigenere":
-                    check50.vigenere("{}{}".format(rootdir, directory), f)
-                elif target == "crack":
-                    check50.crack(f)
+        # run all possible checks on the remakes
+        check50.mario("{}{}".format(rootdir, directory), f)
+        check50.greedy("{}{}".format(rootdir, directory), f)
+        check50.credit("{}{}".format(rootdir, directory), f)
+        check50.caesar("{}{}".format(rootdir, directory), f)
+        check50.vigenere("{}{}".format(rootdir, directory), f)
+        check50.crack(f)
         
-        # grade smile and tweets
-        for target in new_files:
-            if os.path.isfile(rootdir + directory + "/sentiments/" + target):
-                if target == "smile":
-                    check50.smile("{}{}".format(rootdir, directory + "/sentiments"), f)
-                if target == "tweets":
-                    twitter = {'key': 'TODO', 
-                               'secret': 'TODO'}
-                    check50.tweets("{}{}".format(rootdir, directory + "/sentiments"), f, twitter)
+        # run checks on smile and tweets
+        check50.smile("{}{}".format(rootdir, directory + "/sentiments"), f)
+        twitter = {'key': 'TODO', 
+                   'secret': 'TODO'}
+        check50.tweets("{}{}".format(rootdir, directory + "/sentiments"), f, twitter)
         
-        # close the file you're working on
         f.close()
         
     print("...grading complete!")

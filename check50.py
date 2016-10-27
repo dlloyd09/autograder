@@ -12,6 +12,10 @@ def caesar(target, dest):
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- caesar.py exists\n')
+        dest.write('\nCANNOT COMPLETE CAESAR CHECKS\n')
+        dest.write("\n+------------------+\n\n")
+        return
+    
     totalcount += 1
     
     # encrypts 'a' as 'b' using 1 as key
@@ -142,6 +146,10 @@ def credit(target, dest):
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- credit.py exists\n')
+        dest.write('\nCANNOT COMPLETE CREDIT CHECKS\n')
+        dest.write("\n+------------------+\n\n")
+        return
+    
     totalcount += 1
     
     # input of 378282246310005 yields output of AMEX
@@ -295,6 +303,10 @@ def greedy(target, dest):
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- greedy.py exists\n')
+        dest.write('\nCANNOT COMPLETE GREEDY CHECKS\n')
+        dest.write("\n+------------------+\n\n")
+        return
+    
     totalcount += 1
 
     # input of 0.41 yields output of 4
@@ -456,6 +468,10 @@ def mario_less(target, dest, string):
         passcount += 1
     else:
         string += "*FAILED* " + '-- mario.py exists\n'
+        string += '\nCANNOT COMPLETE MARIO CHECKS\n'
+        string += "\n+------------------+\n\n"
+        return
+    
     totalcount += 1
     
     # rejects a height of -1
@@ -611,6 +627,10 @@ def mario_more(target, dest, string):
         passcount += 1
     else:
         string += "*FAILED* " + '-- mario.py exists\n'
+        string += '\nCANNOT COMPLETE MARIO CHECKS\n'
+        string += "\n+------------------+\n\n"
+        return
+    
     totalcount += 1
     
     # rejects a height of -1
@@ -766,6 +786,10 @@ def smile(target, dest):
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- smile exists\n')
+        dest.write('\nCANNOT COMPLETE SMILE CHECKS\n')
+        dest.write("\n+------------------+\n\n")
+        return
+    
     totalcount += 1
     
     # analyzes 'love' as ':)'
@@ -886,6 +910,10 @@ def tweets(target, dest, config):
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- tweets exists\n')
+        dest.write('\nCANNOT COMPLETE TWEETS CHECKS\n')
+        dest.write("\n+------------------+\n\n")
+        return
+    
     totalcount += 1
     
     # set environment variables
@@ -895,16 +923,16 @@ def tweets(target, dest, config):
     # analyzes @cs50 identical to staff solution
     process = pexpect.spawnu('bash -c \'~cs50/pset6/tweets cs50\'')
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
-    f = open('staff.txt', 'w')
+    f = open('__staff.txt', 'w')
     f.write(process.before)
     process.kill(0)
     process = pexpect.spawnu('python3 {}/tweets cs50'.format(target))
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
-    g = open('student.txt', 'w')
+    g = open('__student.txt', 'w')
     g.write(process.before)
     process.kill(0)
     
-    if filecmp.cmp('staff.txt', 'student.txt'):
+    if filecmp.cmp('__staff.txt', '__student.txt'):
         dest.write("*PASSED* " + '-- analyzes @cs50 identical to staff solution\n')
         passcount += 1
     else:
@@ -917,16 +945,16 @@ def tweets(target, dest, config):
     # analyzes @davidjmalan identical to staff solution
     process = pexpect.spawnu('bash -c \'~cs50/pset6/tweets davidjmalan\'')
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
-    f = open('staff.txt', 'w')
+    f = open('__staff.txt', 'w')
     f.write(process.before)
     process.kill(0)
     process = pexpect.spawnu('python3 {}/tweets davidjmalan'.format(target))
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
-    g = open('student.txt', 'w')
+    g = open('__student.txt', 'w')
     g.write(process.before)
     process.kill(0)
     
-    if filecmp.cmp('staff.txt', 'student.txt'):
+    if filecmp.cmp('__staff.txt', '__student.txt'):
         dest.write("*PASSED* " + '-- analyzes @davidjmalan identical to staff solution\n')
         passcount += 1
     else:
@@ -939,16 +967,16 @@ def tweets(target, dest, config):
     # analyzes @realdonaldtrump identical to staff solution
     process = pexpect.spawnu('bash -c \'~cs50/pset6/tweets realdonaldtrump\'')
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
-    f = open('staff.txt', 'w')
+    f = open('__staff.txt', 'w')
     f.write(process.before)
     process.kill(0)
     process = pexpect.spawnu('python3 {}/tweets realdonaldtrump'.format(target))
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
-    g = open('student.txt', 'w')
+    g = open('__student.txt', 'w')
     g.write(process.before)
     process.kill(0)
     
-    if filecmp.cmp('staff.txt', 'student.txt'):
+    if filecmp.cmp('__staff.txt', '__student.txt'):
         dest.write("*PASSED* " + '-- analyzes @realdonaldtrump identical to staff solution\n')
         passcount += 1
     else:
@@ -961,16 +989,16 @@ def tweets(target, dest, config):
     # analyzes @hillaryclinton identical to staff solution
     process = pexpect.spawnu('bash -c \'~cs50/pset6/tweets hillaryclinton\'')
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
-    f = open('staff.txt', 'w')
+    f = open('__staff.txt', 'w')
     f.write(process.before)
     process.kill(0)
     process = pexpect.spawnu('python3 {}/tweets hillaryclinton'.format(target))
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
-    g = open('student.txt', 'w')
+    g = open('__student.txt', 'w')
     g.write(process.before)
     process.kill(0)
     
-    if filecmp.cmp('staff.txt', 'student.txt'):
+    if filecmp.cmp('__staff.txt', '__student.txt'):
         dest.write("*PASSED* " + '-- analyzes @hillaryclinton identical to staff solution\n')
         passcount += 1
     else:
@@ -1014,7 +1042,7 @@ def tweets(target, dest, config):
     process.kill(0)
     totalcount += 1
     
-    process = pexpect.spawnu('rm -f staff.txt student.txt')
+    process = pexpect.spawnu('rm -f __staff.txt __student.txt')
     
     dest.write('\ntweets -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount))
     dest.write("\n+------------------+\n\n")
@@ -1031,6 +1059,10 @@ def vigenere(target, dest):
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- vigenere.py exists\n')
+        dest.write('\nCANNOT COMPLETE VIGENERE CHECKS\n')
+        dest.write("\n+------------------+\n\n")
+        return
+    
     totalcount += 1
     
     # encrypts 'a' as 'a' using 'a' as keyword
