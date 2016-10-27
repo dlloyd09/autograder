@@ -14,7 +14,7 @@ Example:
 
 [start=3]
 . Execute `./setup.sh`
-. Ensure that each student's submission is properly formatted. This might require renaming files in student submissions after checking out the `pset6` branch. In particular, a student's submission must be organized as follows:
+. Ensure that *each* student's submission is properly formatted before running this script. This might require renaming files in student submissions after checking out the `pset6` branch. In particular, a student's submission must be organized as follows:
 
 [source,bash]
 ----
@@ -47,7 +47,7 @@ Example:
 
 == Running
 
-. Execute `python grade6.py`. It takes just under 60 seconds per student to all 9 checks, so once all the pre-work is done, fire it off and grade a bite to eat!
+. Execute `python grade6.py`. It takes just under 60 seconds per student to all 9 checks, so once all the pre-work is done, set the script to run and go grab a bite to eat!
 .. This script will run `mario_less` and `mario_more` on all students, probabilistically determining which the student most likely completed based on how many tests their code passes in each.
 . When finished, view student results in the newly created `results/` directory, and input scores into Gradebook.
 
