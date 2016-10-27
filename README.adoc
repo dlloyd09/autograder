@@ -53,6 +53,6 @@ Example:
 
 == Notes
 
-. During the `tweets` check, this program will create and delete files called `__staff.txt` and `__student.txt`. If for whatever reason you have files called that, you might want to move them; they will be clobbered.
+. During the `tweets` check, this program will create and delete files called `pass:[__]staff.txt` and `pass:[__]student.txt`. If for whatever reason you have files called that, you might want to move them; they will be clobbered.
 . If a student has not named his or her files correctly, or hierarchically organized their submission the way we expect, the script will not work as intended. You may need to rename files or rearrange their submission to get it to work correctly.
 
