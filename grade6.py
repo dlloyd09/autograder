@@ -48,16 +48,16 @@ def main():
         # see which reimplemented files are there
         for target in recreated_files:
             if os.path.isfile(rootdir + directory + "/" + target + ".py"):
-                if target == "greedy":
+                if target == "mario":
+                    check50.mario("{}{}".format(rootdir, directory), f)
+                elif target == "greedy":
                     check50.greedy("{}{}".format(rootdir, directory), f)
-                elif target == "caesar":
-                    check50.caesar("{}{}".format(rootdir, directory), f)
                 elif target == "credit":
                     check50.credit("{}{}".format(rootdir, directory), f)
+                elif target == "caesar":
+                    check50.caesar("{}{}".format(rootdir, directory), f)
                 elif target == "vigenere":
                     check50.vigenere("{}{}".format(rootdir, directory), f)
-                elif target == "mario":
-                    check50.mario("{}{}".format(rootdir, directory), f)
                 elif target == "crack":
                     check50.crack(f)
         
@@ -67,9 +67,10 @@ def main():
                 if target == "smile":
                     check50.smile("{}{}".format(rootdir, directory + "/sentiments"), f)
                 if target == "tweets":
-                    twitter = {'key': 'TODO', 
-                               'secret': 'TODO'}
+                    twitter = {'key': 'cIwiutaH0LDLKjQOv5PWTSyGF', 
+                               'secret': 'HP5EBLGOBlmtagUUgigHQLTa0mM4t9esJAALPjdqVErNv2ycmy'}
                     check50.tweets("{}{}".format(rootdir, directory + "/sentiments"), f, twitter)
+        
         # close the file you're working on
         f.close()
         

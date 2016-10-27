@@ -436,21 +436,323 @@ def greedy(target, dest):
 def mario(target, dest):
     less = ""
     more = ""
-    lessavg, less = mario_less(target, dest, less)
-    moreavg, more = mario_more(target, dest, more)
+    lesscount, less = mario_less(target, dest, less)
+    morecount, more = mario_more(target, dest, more)
     
-    if lessavg >= moreavg:
+    if lesscount >= morecount:
         dest.write(less)
     else:
         dest.write(more)
 
 # mario (less)
 def mario_less(target, dest, string):
-    return 0, string
+    passcount, totalcount = 0, 0
+    
+    # dest.write header
+    string += "mario (less comfy)\n\n"
+    
+    if os.path.isfile(target + '/mario.py'):
+        string += "*PASSED* " + '-- mario.py exists\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- mario.py exists\n'
+    totalcount += 1
+    
+    # rejects a height of -1
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('-1')
+    if not process.isalive():
+        string += "*FAILED* " + '-- rejects a height of -1\n'
+    else:
+        string += "*PASSED* " + '-- rejects a height of -1\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 0 correctly
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('0')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if '#' in return_data or process.isalive():
+        string += "*FAILED* " + '-- handles a height of 0 correctly\n'
+    else:
+        string += "*PASSED* " + '-- handles a height of 0 correctly\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 1 correctly
+    output = '''##'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('1')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*FAILED* " + '-- handles a height of 1 correctly\n'
+    else:
+        string += "*PASSED* " + '-- handles a height of 1 correctly\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+
+    # handles a height of 2 correctly
+    output = ''' ##
+###'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('2')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*FAILED* " + '-- handles a height of 2 correctly\n'
+    else:
+        string += "*PASSED* " + '-- handles a height of 2 correctly\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+
+    # handles a height of 23 correctly
+    output = '''                      ##
+                     ###
+                    ####
+                   #####
+                  ######
+                 #######
+                ########
+               #########
+              ##########
+             ###########
+            ############
+           #############
+          ##############
+         ###############
+        ################
+       #################
+      ##################
+     ###################
+    ####################
+   #####################
+  ######################
+ #######################
+########################'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('23')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*FAILED* " + '-- handles a height of 23 correctly\n'
+    else:
+        string += "*PASSED* " + '-- handles a height of 23 correctly\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+
+    # rejects a height of 24, then handles a height of 2 correctly
+    output = ''' ##
+###'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('24')
+    process.expect('.*')
+    process.sendline('2')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*FAILED* " + '-- rejects a height of 24, then accepts a height of 2\n'
+    else:
+        string += "*PASSED* " + '-- rejects a height of 24, then accepts a height of 2\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # rejects a nonnumeric height of 'foo'
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('foo')
+    if not process.isalive():
+        string += "*FAILED* " + '-- rejects a non-numeric height of \'foo\'\n'
+    else:
+        string += "*PASSED* " + '-- rejects a non-numeric height of \'foo\'\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # rejects a nonnumeric height of ''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('')
+    if not process.isalive():
+        string += "*FAILED* " + '-- rejects a non-numeric height of \'\'\n'
+    else:
+        string += "*PASSED* " + '-- rejects a non-numeric height of \'\'\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    string += '\nmario.py -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount)
+    string += '\n+------------------+\n\n'   
+    
+    return passcount, string
 
 # mario (more)
 def mario_more(target, dest, string):
-    return 0, string
+    passcount, totalcount = 0, 0
+    
+    # dest.write header
+    string += "mario (more comfy)\n\n"
+    
+    if os.path.isfile(target + '/mario.py'):
+        string += "*PASSED* " + '-- mario.py exists\n'
+        passcount += 1
+    else:
+        string += "*FAILED* " + '-- mario.py exists\n'
+    totalcount += 1
+    
+    # rejects a height of -1
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('-1')
+    if not process.isalive():
+        string += "*FAILED* " + '-- rejects a height of -1\n'
+    else:
+        string += "*PASSED* " + '-- rejects a height of -1\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 0 correctly
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('0')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if '#' in return_data or process.isalive():
+        string += "*FAILED* " + '-- handles a height of 0 correctly\n'
+    else:
+        string += "*PASSED* " + '-- handles a height of 0 correctly\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # handles a height of 1 correctly
+    output = '''#  #'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('1')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*FAILED* " + '-- handles a height of 1 correctly\n'
+    else:
+        string += "*PASSED* " + '-- handles a height of 1 correctly\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+
+    # handles a height of 2 correctly
+    output = ''' #  #
+##  ##'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('2')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*FAILED* " + '-- handles a height of 2 correctly\n'
+    else:
+        string += "*PASSED* " + '-- handles a height of 2 correctly\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+
+    # handles a height of 23 correctly
+    output = '''                      #  #
+                     ##  ##
+                    ###  ###
+                   ####  ####
+                  #####  #####
+                 ######  ######
+                #######  #######
+               ########  ########
+              #########  #########
+             ##########  ##########
+            ###########  ###########
+           ############  ############
+          #############  #############
+         ##############  ##############
+        ###############  ###############
+       ################  ################
+      #################  #################
+     ##################  ##################
+    ###################  ###################
+   ####################  ####################
+  #####################  #####################
+ ######################  ######################
+#######################  #######################'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('23')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*FAILED* " + '-- handles a height of 2 correctly\n'
+    else:
+        string += "*PASSED* " + '-- handles a height of 2 correctly\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # rejects a height of 24, then accepts a height of 2
+    output = ''' #  #
+##  ##'''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('24')
+    process.expect('.*')
+    process.sendline('24')
+    process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+    return_data = ''.join([i for i in process.before if i != '\r'])
+    if output not in return_data or process.isalive():
+        string += "*FAILED* " + '-- rejects a height of 24, then accepts a height of 2\n'
+    else:
+        string += "*PASSED* " + '-- rejects a height of 24, then accepts a height of 2\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # rejects a nonnumeric height of 'foo'
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('foo')
+    if not process.isalive():
+        string += "*FAILED* " + '-- rejects a non-numeric height of \'foo\'\n'
+    else:
+        string += "*PASSED* " + '-- rejects a non-numeric height of \'foo\'\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    # rejects a nonnumeric height of ''
+    process = pexpect.spawnu('python3 {}/mario.py'.format(target))
+    process.expect('.*')
+    process.sendline('')
+    if not process.isalive():
+        string += "*FAILED* " + '-- rejects a non-numeric height of \'\'\n'
+    else:
+        string += "*PASSED* " + '-- rejects a non-numeric height of \'\'\n'
+        passcount += 1
+    totalcount += 1
+    process.kill(0)
+    
+    
+    string += '\nmario.py -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount)
+    string += '\n+------------------+\n\n'   
+    return passcount, string
 
 def smile(target, dest):
     passcount, totalcount = 0, 0
@@ -711,6 +1013,8 @@ def tweets(target, dest, config):
         passcount += 1
     process.kill(0)
     totalcount += 1
+    
+    process = pexpect.spawnu('rm -f staff.txt student.txt')
     
     dest.write('\ntweets -- PASSED {} OF {} CHECKS\n'.format(passcount, totalcount))
     dest.write("\n+------------------+\n\n")
