@@ -700,9 +700,9 @@ def mario_more(target, dest, string):
     process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
     return_data = ''.join([i for i in process.before if i != '\r'])
     if output not in return_data or process.isalive():
-        string += "*FAILED* " + '-- handles a height of 2 correctly\n'
+        string += "*FAILED* " + '-- handles a height of 23 correctly\n'
     else:
-        string += "*PASSED* " + '-- handles a height of 2 correctly\n'
+        string += "*PASSED* " + '-- handles a height of 23 correctly\n'
         passcount += 1
     totalcount += 1
     process.kill(0)
