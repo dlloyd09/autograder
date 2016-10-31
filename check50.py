@@ -281,9 +281,9 @@ def credit(target, dest):
     process.expect('.*')
     process.sendline('')
     if not process.isalive():
-        dest.write("*FAILED* " + '-- rejects a non-numeric input of \'foo\'\n')
+        dest.write("*FAILED* " + '-- rejects a non-numeric input of \'\'\n')
     else:
-        dest.write("*PASSED* " + '-- rejects a non-numeric input of \'foo\'\n')
+        dest.write("*PASSED* " + '-- rejects a non-numeric input of \'\'\n')
         passcount += 1
     totalcount += 1
     process.kill(0)
