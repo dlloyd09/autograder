@@ -14,7 +14,7 @@ Example:
 
 [start=3]
 . Execute `./setup.sh`
-. Ensure that *each* student's submission is properly formatted before running this script. This might require renaming files in student submissions (e.g. from `caesar` to `caesar.py` or from `tweets.py` to `tweets`) after checking out the `pset6` branch. In particular, a student's submission must be organized as follows:
+. Ensure that *each* student's submission is properly formatted before running this script. This might require renaming files in student submissions (e.g. from `caesar` to `caesar.py` or from `tweets.py` to `tweets`) after checking out the `pset6` branch. (Note any changes you have to make, as they are correctness issues!) In particular, a student's submission must be organized as follows:
 
 [source,bash]
 ----
