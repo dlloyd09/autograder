@@ -35,7 +35,7 @@ def main():
     for directory in directories:
         
         # ignore the results directory
-        if directory == "results" or directory == ".git":
+        if directory == "results" or directory == ".git" or directory[0] == "_":
             continue
         
         # start a file for this student's check50 output
