@@ -8,7 +8,7 @@ def caesar(target, dest):
 
     # check if file exists
     if os.path.isfile(target + "/caesar.py"):
-        dest.write("*PASSED* " + '-- caesar.py exists\n')
+        #dest.write("*PASSED* " + '-- caesar.py exists\n')
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- caesar.py exists\n')
@@ -142,7 +142,7 @@ def credit(target, dest):
     
     # check if file exists
     if os.path.isfile(target + "/credit.py"):
-        dest.write("*PASSED* " + '-- credit.py exists\n')
+        #dest.write("*PASSED* " + '-- credit.py exists\n')
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- credit.py exists\n')
@@ -299,7 +299,7 @@ def greedy(target, dest):
 
     # check if file exists
     if os.path.isfile(target + "/greedy.py"):
-        dest.write("*PASSED* " + '-- greedy.py exists\n')
+        #dest.write("*PASSED* " + '-- greedy.py exists\n')
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- greedy.py exists\n')
@@ -464,7 +464,7 @@ def mario_less(target, dest, string):
     string += "mario (less comfy)\n\n"
     
     if os.path.isfile(target + '/mario.py'):
-        string += "*PASSED* " + '-- mario.py exists\n'
+        #string += "*PASSED* " + '-- mario.py exists\n'
         passcount += 1
     else:
         string += "*FAILED* " + '-- mario.py exists\n'
@@ -623,7 +623,7 @@ def mario_more(target, dest, string):
     string += "mario (more comfy)\n\n"
     
     if os.path.isfile(target + '/mario.py'):
-        string += "*PASSED* " + '-- mario.py exists\n'
+        #string += "*PASSED* " + '-- mario.py exists\n'
         passcount += 1
     else:
         string += "*FAILED* " + '-- mario.py exists\n'
@@ -782,7 +782,7 @@ def smile(target, dest):
 
     # check if file exists
     if os.path.isfile(target + "/smile"):
-        dest.write("*PASSED* " + '-- smile exists\n')
+        #dest.write("*PASSED* " + '-- smile exists\n')
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- smile exists\n')
@@ -907,7 +907,7 @@ def tweets(target, dest, config):
     staffsolution = "/home/cs50/pset6/tweets"
     test_staff = os.path.isfile(staffsolution)
     if test_student and test_staff:
-        dest.write("*PASSED* " + '-- tweets exists\n')
+        #dest.write("*PASSED* " + '-- tweets exists\n')
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- tweets exists\n')
@@ -1056,7 +1056,7 @@ def vigenere(target, dest):
 
     # check if file exists
     if os.path.isfile(target + "/vigenere.py"):
-        dest.write("*PASSED* " + '-- vigenere.py exists\n')
+        #dest.write("*PASSED* " + '-- vigenere.py exists\n')
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- vigenere.py exists\n')
