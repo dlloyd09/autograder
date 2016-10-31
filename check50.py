@@ -858,17 +858,17 @@ def smile(target, dest):
     totalcount += 1
 
     # analyzes 'hate love' as ':|'
-    output = ':|'
-    process = pexpect.spawnu('python3 {}/smile "hate love"'.format(target))
-    process.expect([pexpect.EOF, pexpect.TIMEOUT])
-    return_data = process.before
-    if output not in return_data or process.isalive():
-        dest.write("*FAILED* " + '-- analyzes \'hate love\' as \':|\'\n')
-    else:
-        dest.write("*PASSED* " + '-- analyzes \'hate love\' as \':|\'\n')
-        passcount += 1
-    process.kill(0)
-    totalcount += 1
+    #output = ':|'
+    #process = pexpect.spawnu('python3 {}/smile "hate love"'.format(target))
+    #process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    #return_data = process.before
+    #if output not in return_data or process.isalive():
+    #    dest.write("*FAILED* " + '-- analyzes \'hate love\' as \':|\'\n')
+    #else:
+    #    dest.write("*PASSED* " + '-- analyzes \'hate love\' as \':|\'\n')
+    #    passcount += 1
+    #process.kill(0)
+    #totalcount += 1
     
     # handles lack of argv[1]
     process = pexpect.spawnu('python3 {}/smile'.format(target))
@@ -899,7 +899,8 @@ def smile(target, dest):
 def tweets(target, dest, config):
     passcount, totalcount = 0, 0
     # dest.write header
-    dest.write("tweets\n\n")
+    dest.write("tweets\n\nPlease note that the tweets check will (perhaps falsely) return FAILED if student's format does not match ours exactly!\n")
+    dest.write("Please do a double-check before marking in Gradebook if this is the case.\n\n")
     
     # check if files exist
     test_student = os.path.isfile(target + "/tweets")
@@ -921,12 +922,12 @@ def tweets(target, dest, config):
     os.environ['API_SECRET'] = config['secret']
     
     # analyzes @cs50 identical to staff solution
-    process = pexpect.spawnu('bash -c \'~cs50/pset6/tweets cs50\'')
+    process = pexpect.spawnu('bash -c \'~cs50/pset6/tweets @cs50\'')
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
     f = open('__staff.txt', 'w')
     f.write(process.before)
     process.kill(0)
-    process = pexpect.spawnu('python3 {}/tweets cs50'.format(target))
+    process = pexpect.spawnu('python3 {}/tweets @cs50'.format(target))
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
     g = open('__student.txt', 'w')
     g.write(process.before)
@@ -942,7 +943,7 @@ def tweets(target, dest, config):
     f.close()
     g.close()
 
-    # analyzes @davidjmalan identical to staff solution
+    # analyzes davidjmalan identical to staff solution (no @ symbol)
     process = pexpect.spawnu('bash -c \'~cs50/pset6/tweets davidjmalan\'')
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
     f = open('__staff.txt', 'w')
@@ -955,10 +956,10 @@ def tweets(target, dest, config):
     process.kill(0)
     
     if filecmp.cmp('__staff.txt', '__student.txt'):
-        dest.write("*PASSED* " + '-- analyzes @davidjmalan identical to staff solution\n')
+        dest.write("*PASSED* " + '-- analyzes davidjmalan (no @) identical to staff solution\n')
         passcount += 1
     else:
-        dest.write("*FAILED* " + '-- analyzes @davidjmalan identical to staff solution\n')
+        dest.write("*FAILED* " + '-- analyzes davidjmalan (no @) identical to staff solution\n')
     totalcount += 1
     
     f.close()
