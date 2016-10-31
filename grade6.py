@@ -37,7 +37,11 @@ def main():
         # ignore the results directory
         if directory == "results" or directory == ".git" or directory[0] == "_":
             continue
-        
+            
+        # ignore empty directories
+        if os.listdir(directory) == "":
+            continue
+            
         # start a file for this student's check50 output
         f = open(rootdir + "results/" + directory + ".txt", "w")
         f.write("+------------------+\n\n")
