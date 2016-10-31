@@ -39,7 +39,7 @@ def main():
             continue
             
         # ignore empty directories
-        if os.listdir(directory) == "":
+        if os.listdir(directory) == []:
             continue
             
         # start a file for this student's check50 output
