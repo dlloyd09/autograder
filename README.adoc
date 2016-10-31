@@ -47,8 +47,9 @@ Example:
 
 == Running
 
-. Execute `python grade6.py`. It takes just about 1 minute per student to all 9 checks (on a sample of 37 submissions, the script took 49 minutes to run), so once all the pre-work is done, set the script to run and go grab a bite to eat!
+. Execute `python grade6.py`. It takes just about 1 minute per student to execute all 9 of the checks (on a sample of 37 submissions, the script took 49 minutes to run), so once all the pre-work is done, set the script to run and go grab a bite to eat!
 .. This script will run `mario_less` and `mario_more` on all students, probabilistically determining which the student most likely completed based on how many tests their code passes in each.
+.. There is no check for `application.py`; you will have to assess that one manually.
 . When finished, view student results in the newly created `results/` directory, and input scores into Gradebook.
 
 == Notes
