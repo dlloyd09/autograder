@@ -55,5 +55,6 @@ Example:
 == Notes
 
 . During the `tweets` check, this program will create and delete files called `pass:[__]staff.txt` and `pass:[__]student.txt`. If for whatever reason you have files called that, you might want to move them; they will be clobbered.
+. In the output text files, if a student's submission passes, you will notice that the script reports one more check than is printed out; to make things cleanly align with `check50`, I have deleted the "file exists" check (which counts as a passed test) from the text files.
 . If a student has not named his or her files correctly, or hierarchically organized their submission the way we expect, the script will not work as intended. You may need to rename files or rearrange their submission to get it to work correctly.
 
