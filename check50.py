@@ -1010,16 +1010,16 @@ def tweets(target, dest, config):
     g.close()
 
     # handles protected account (i.e., @mikesmith13)
-    process = pexpect.spawnu('python3 {}/tweets mikesmith13'.format(target))
-    process.expect([pexpect.EOF, pexpect.TIMEOUT])
-    return_data = process.before
-    if 'Traceback' in return_data or process.isalive():
-        dest.write("*PASSED* " + '-- handles protected account (i.e., @mikesmith13)\n')
-        passcount += 1
-    else:
-        dest.write("*FAILED* " + '-- handles protected account (i.e., @mikesmith13)\n')
-    process.kill(0)
-    totalcount += 1
+    #process = pexpect.spawnu('python3 {}/tweets mikesmith13'.format(target))
+    #process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    #return_data = process.before
+    #if 'Traceback' in return_data or process.isalive():
+    #    dest.write("*PASSED* " + '-- handles protected account (i.e., @mikesmith13)\n')
+    #    passcount += 1
+    #else:
+    #    dest.write("*FAILED* " + '-- handles protected account (i.e., @mikesmith13)\n')
+    #process.kill(0)
+    #totalcount += 1
     
     # handles lack of argv[1]
     process = pexpect.spawnu('python3 {}/tweets'.format(target))
