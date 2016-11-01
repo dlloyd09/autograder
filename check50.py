@@ -734,7 +734,7 @@ def mario_more(target, dest, string):
     process.expect('.*')
     process.sendline('24')
     process.expect('.*')
-    process.sendline('24')
+    process.sendline('2')
     process.expect([pexpect.EOF, pexpect.TIMEOUT], timeout=1)
     return_data = ''.join([i for i in process.before if i != '\r'])
     if output not in return_data or process.isalive():
