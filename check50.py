@@ -927,43 +927,42 @@ def tweets(target, dest, config):
     f = open('__staff.txt', 'w')
     f.write(process.before)
     process.kill(0)
-    process = pexpect.spawnu('python3 {}/tweets @cs50'.format(target))
-    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    process2 = pexpect.spawnu('python3 {}/tweets @cs50'.format(target))
+    process2.expect([pexpect.EOF, pexpect.TIMEOUT])
     g = open('__student.txt', 'w')
-    g.write(process.before)
-    process.kill(0)
+    g.write(process2.before)
+    process2.kill(0)
+    f.close()
+    g.close()
     
-    if filecmp.cmp('__staff.txt', '__student.txt'):
+    if filecmp.cmp('__staff.txt', '__student.txt', shallow=False):
         dest.write("*PASSED* " + '-- analyzes @cs50 identical to staff solution\n')
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- analyzes @cs50 identical to staff solution\n')
     totalcount += 1
     
-    f.close()
-    g.close()
-
     # analyzes davidjmalan identical to staff solution (no @ symbol)
     process = pexpect.spawnu('bash -c \'~cs50/pset6/tweets davidjmalan\'')
     process.expect([pexpect.EOF, pexpect.TIMEOUT])
     f = open('__staff.txt', 'w')
     f.write(process.before)
     process.kill(0)
-    process = pexpect.spawnu('python3 {}/tweets davidjmalan'.format(target))
-    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    process2 = pexpect.spawnu('python3 {}/tweets davidjmalan'.format(target))
+    process2.expect([pexpect.EOF, pexpect.TIMEOUT])
     g = open('__student.txt', 'w')
-    g.write(process.before)
-    process.kill(0)
+    g.write(process2.before)
+    process2.kill(0)
+    f.close()
+    g.close()
     
-    if filecmp.cmp('__staff.txt', '__student.txt'):
+    if filecmp.cmp('__staff.txt', '__student.txt', shallow=False):
         dest.write("*PASSED* " + '-- analyzes davidjmalan (no @) identical to staff solution\n')
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- analyzes davidjmalan (no @) identical to staff solution\n')
     totalcount += 1
-    
-    f.close()
-    g.close()
+
     
     # analyzes @realdonaldtrump identical to staff solution
     process = pexpect.spawnu('bash -c \'~cs50/pset6/tweets realdonaldtrump\'')
@@ -971,21 +970,20 @@ def tweets(target, dest, config):
     f = open('__staff.txt', 'w')
     f.write(process.before)
     process.kill(0)
-    process = pexpect.spawnu('python3 {}/tweets realdonaldtrump'.format(target))
-    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    process2 = pexpect.spawnu('python3 {}/tweets realdonaldtrump'.format(target))
+    process2.expect([pexpect.EOF, pexpect.TIMEOUT])
     g = open('__student.txt', 'w')
-    g.write(process.before)
-    process.kill(0)
+    g.write(process2.before)
+    process2.kill(0)
+    f.close()
+    g.close()
     
-    if filecmp.cmp('__staff.txt', '__student.txt'):
+    if filecmp.cmp('__staff.txt', '__student.txt', shallow=False):
         dest.write("*PASSED* " + '-- analyzes @realdonaldtrump identical to staff solution\n')
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- analyzes @realdonaldtrump identical to staff solution\n')
     totalcount += 1
-    
-    f.close()
-    g.close()
 
     # analyzes @hillaryclinton identical to staff solution
     process = pexpect.spawnu('bash -c \'~cs50/pset6/tweets hillaryclinton\'')
@@ -993,21 +991,21 @@ def tweets(target, dest, config):
     f = open('__staff.txt', 'w')
     f.write(process.before)
     process.kill(0)
-    process = pexpect.spawnu('python3 {}/tweets hillaryclinton'.format(target))
-    process.expect([pexpect.EOF, pexpect.TIMEOUT])
+    process2 = pexpect.spawnu('python3 {}/tweets hillaryclinton'.format(target))
+    process2.expect([pexpect.EOF, pexpect.TIMEOUT])
     g = open('__student.txt', 'w')
-    g.write(process.before)
-    process.kill(0)
+    g.write(process2.before)
+    process2.kill(0)
+    f.close()
+    g.close()
     
-    if filecmp.cmp('__staff.txt', '__student.txt'):
+    if filecmp.cmp('__staff.txt', '__student.txt', shallow=False):
         dest.write("*PASSED* " + '-- analyzes @hillaryclinton identical to staff solution\n')
         passcount += 1
     else:
         dest.write("*FAILED* " + '-- analyzes @hillaryclinton identical to staff solution\n')
     totalcount += 1
-    
-    f.close()
-    g.close()
+
 
     # handles protected account (i.e., @mikesmith13)
     #process = pexpect.spawnu('python3 {}/tweets mikesmith13'.format(target))

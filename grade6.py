@@ -59,8 +59,8 @@ def main():
         
         # run checks on smile and tweets
         check50.smile("{}{}".format(rootdir, directory + "/sentiments"), f)
-        twitter = {'key': '	TODO', 
-                   'secret': '	TODO'}
+        twitter = {'key': 'TODO', 
+                   'secret': 'TODO'}
         check50.tweets("{}{}".format(rootdir, directory + "/sentiments"), f, twitter)
         
         f.close()
